@@ -290,6 +290,18 @@ nav {
     font-family: Arial;
 }
 
+.html-logo {
+    color: hsl(9, 100%, 58%);
+}
+
+.css {
+    color: hsl(210, 100%, 50%);
+}
+
+.javascript {
+    color: hsl(53, 87%, 58%);
+}
+
 .hero-title {
     font-size: clamp(2.5rem, 10vw, 5rem);
     font-weight: 900;
@@ -776,6 +788,11 @@ nav {
     color: white;
 }
 
+.contact-details h3 {
+    text-decoration: none;
+    color: white;
+}
+
 .contact-icon ion-icon {
     padding: none;
     margin-top: 0.65rem;
@@ -788,7 +805,11 @@ nav {
 }
 
 .contact-details p {
-    color: #94a3b8;
+    color: #ffffff;
+}
+
+#email, #linkedin, #github, #devpost, #resume {
+    color: white
 }
 
 .contact-details a {
