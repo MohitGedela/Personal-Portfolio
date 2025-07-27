@@ -1,1 +1,1 @@
-# Personal-Portfolio
+# This is a personal website I built to showcase my projects, skills, and interests. It serves as a central place to learn more about me, explore what I'm working on, and get in touch.
