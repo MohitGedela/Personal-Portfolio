@@ -129,9 +129,9 @@ footer[id] {
 }
 
 .skill-chip img {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
   background: transparent;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
   image-rendering: -webkit-optimize-contrast;
@@ -140,7 +140,7 @@ footer[id] {
 .skill-chip span {
   color: rgba(232, 241, 255, 0.95);
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 8px;
+  font-size: 9px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;

@@ -32,7 +32,7 @@ export function SkillsGlobe() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
-    camera.position.z = 6.8;
+    camera.position.z = 5.8;
 
     const pixelRatio = Math.min(Math.max(window.devicePixelRatio || 1, 1), 3);
     const renderer = new THREE.WebGLRenderer({
@@ -65,8 +65,7 @@ export function SkillsGlobe() {
     const group = new THREE.Group();
     scene.add(group);
 
-    // Smaller sphere so more icons stay in view around the silhouette
-    const radius = 1.35;
+    const radius = 1.62;
     const geo = new THREE.IcosahedronGeometry(radius, 3);
     const wire = new THREE.LineSegments(
       new THREE.WireframeGeometry(geo),
@@ -187,7 +186,7 @@ export function SkillsGlobe() {
         el.style.opacity = String((0.28 + front * 0.72).toFixed(3));
         el.style.zIndex = String(Math.round(front * 200));
         if (inner) {
-          const scale = Math.round((0.68 + front * 0.38) * 100) / 100;
+          const scale = Math.round((0.78 + front * 0.42) * 100) / 100;
           inner.style.transform = `scale(${scale})`;
           inner.style.filter = "none";
         }
@@ -241,7 +240,7 @@ export function SkillsGlobe() {
   }, []);
 
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[540px]">
+    <div className="relative mx-auto aspect-square w-full max-w-[620px]">
       <div ref={hostRef} className="absolute inset-0 cursor-grab active:cursor-grabbing" />
       <p className="pointer-events-none absolute bottom-1 left-0 right-0 z-10 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">
         Drag to explore skills
