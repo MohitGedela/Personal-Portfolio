@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.DS_Store
+*.log
+*.tsbuildinfo
+shot-*.png
+verify-browser.js
+verify-result.json
+video-frames/
+*.mp4
+*.MP4
