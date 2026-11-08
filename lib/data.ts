@@ -19,29 +19,44 @@ export const about = {
     "When I'm not at my desk, you'll find me lifting weights or exploring the outdoors staying active so I'm ready for whatever challenge comes next.",
 };
 
-export type Skill = { name: string; icon: string };
+export type Skill = { name: string; icon: string; src?: string };
 
-/** Icons via skillicons.dev */
+/** Icons via skillicons.dev (custom `src` when unavailable there) */
 export const skills: Skill[] = [
+  { name: "Python", icon: "py" },
   { name: "Java", icon: "java" },
-  { name: "Python", icon: "python" },
-  { name: "JavaScript", icon: "js" },
+  { name: "C", icon: "c" },
+  { name: "C++", icon: "cpp" },
   { name: "TypeScript", icon: "ts" },
-  { name: "React", icon: "react" },
-  { name: "Next.js", icon: "nextjs" },
+  { name: "JavaScript", icon: "js" },
   { name: "HTML", icon: "html" },
   { name: "CSS", icon: "css" },
-  { name: "Tailwind", icon: "tailwind" },
+  { name: "React", icon: "react" },
+  { name: "Next.js", icon: "nextjs" },
   { name: "Node.js", icon: "nodejs" },
   { name: "Flask", icon: "flask" },
   { name: "Firebase", icon: "firebase" },
+  { name: "Tailwind", icon: "tailwind" },
   { name: "Three.js", icon: "threejs" },
   { name: "Figma", icon: "figma" },
-  { name: "Vite", icon: "vite" },
+  { name: "PostgreSQL", icon: "postgres" },
+  { name: "DynamoDB", icon: "dynamodb" },
+  { name: "OpenCV", icon: "opencv" },
+  { name: "scikit-learn", icon: "sklearn" },
+  { name: "PyTorch", icon: "pytorch" },
+  { name: "Grafana", icon: "grafana" },
+  {
+    name: "Power BI",
+    icon: "powerbi",
+    src: "/icons/powerbi.svg",
+  },
+  { name: "AWS", icon: "aws" },
+  { name: "Docker", icon: "docker" },
+  { name: "Linux", icon: "linux" },
   { name: "Git", icon: "git" },
   { name: "GitHub", icon: "github" },
-  { name: "Linux", icon: "linux" },
-  { name: "Android", icon: "androidstudio" },
+  { name: "Raspberry Pi", icon: "raspberrypi" },
+  { name: "Bash", icon: "bash" },
 ];
 
 export type Role = {

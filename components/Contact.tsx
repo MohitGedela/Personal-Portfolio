@@ -39,7 +39,7 @@ export function Contact() {
         hold={500}
         className="relative z-20 mx-auto flex min-h-[560px] max-w-3xl flex-col items-center justify-center px-4 py-16 text-center"
       >
-        <div className="contact-type w-full max-w-2xl bg-[#070b14]/35 px-6 py-12 backdrop-blur-sm sm:px-10">
+        <div className="contact-type w-full max-w-2xl px-6 py-12 sm:px-10">
           <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#9ecaff]">
             <Typed text="// 04    Direct Channel" cps={32} />
           </p>
@@ -80,7 +80,7 @@ export function Contact() {
                   href={social.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 border border-white/20 bg-[#070b14]/80 px-3 py-2 text-xs text-white hover:border-[#60a5fa]"
+                  className="inline-flex items-center gap-2 border border-white/20 bg-[#070b14]/55 px-3 py-2 text-xs text-white hover:border-[#60a5fa]"
                 >
                   <Icon className="h-3.5 w-3.5" />
                   <Typed text={social.label} delay={360 + index * 70} cps={24} />
@@ -91,7 +91,7 @@ export function Contact() {
               href={profile.resume}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 border border-white/20 bg-[#070b14]/80 px-3 py-2 text-xs text-white hover:border-[#60a5fa]"
+              className="inline-flex items-center gap-2 border border-white/20 bg-[#070b14]/55 px-3 py-2 text-xs text-white hover:border-[#60a5fa]"
             >
               <FileText className="h-3.5 w-3.5" />
               <Typed text="Resume" delay={560} cps={20} />

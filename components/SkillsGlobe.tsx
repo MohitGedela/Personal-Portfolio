@@ -5,6 +5,20 @@ import * as THREE from "three";
 import { CSS2DObject, CSS2DRenderer } from "three/examples/jsm/renderers/CSS2DRenderer.js";
 import { skills } from "@/lib/data";
 
+/** Even spherical layout like a tag-cloud globe */
+function fibonacciSphere(count: number) {
+  const points: THREE.Vector3[] = [];
+  const offset = 2 / count;
+  const increment = Math.PI * (3 - Math.sqrt(5));
+  for (let i = 0; i < count; i += 1) {
+    const y = i * offset - 1 + offset / 2;
+    const r = Math.sqrt(Math.max(0, 1 - y * y));
+    const phi = i * increment;
+    points.push(new THREE.Vector3(Math.cos(phi) * r, y, Math.sin(phi) * r).normalize());
+  }
+  return points;
+}
+
 export function SkillsGlobe() {
   const hostRef = useRef<HTMLDivElement>(null);
 
@@ -13,37 +27,54 @@ export function SkillsGlobe() {
     if (!host) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let width = host.clientWidth || 560;
-    let height = Math.max(420, Math.min(560, width * 0.85));
+    let width = host.clientWidth || 520;
+    let height = width;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.z = 5.2;
+    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+    camera.position.z = 6.8;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const pixelRatio = Math.min(Math.max(window.devicePixelRatio || 1, 1), 3);
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: "high-performance",
+      precision: "highp",
+    });
+    renderer.setPixelRatio(pixelRatio);
     renderer.setSize(width, height);
+    renderer.setClearColor(0x000000, 0);
     renderer.domElement.style.position = "absolute";
     renderer.domElement.style.inset = "0";
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "100%";
     host.appendChild(renderer.domElement);
 
     const labelRenderer = new CSS2DRenderer();
     labelRenderer.setSize(width, height);
-    labelRenderer.domElement.style.position = "absolute";
-    labelRenderer.domElement.style.inset = "0";
-    labelRenderer.domElement.style.pointerEvents = "none";
+    Object.assign(labelRenderer.domElement.style, {
+      position: "absolute",
+      inset: "0",
+      width: "100%",
+      height: "100%",
+      pointerEvents: "none",
+      overflow: "visible",
+    });
     host.appendChild(labelRenderer.domElement);
 
     const group = new THREE.Group();
     scene.add(group);
 
-    const geo = new THREE.IcosahedronGeometry(1.75, 2);
+    // Smaller sphere so more icons stay in view around the silhouette
+    const radius = 1.35;
+    const geo = new THREE.IcosahedronGeometry(radius, 3);
     const wire = new THREE.LineSegments(
       new THREE.WireframeGeometry(geo),
       new THREE.LineBasicMaterial({
         color: 0x7eb6ff,
         transparent: true,
-        opacity: 0.55,
+        opacity: 0.32,
+        depthWrite: false,
       }),
     );
     group.add(wire);
@@ -51,38 +82,32 @@ export function SkillsGlobe() {
     const shell = new THREE.Mesh(
       geo,
       new THREE.MeshBasicMaterial({
-        color: 0x3b82f6,
+        color: 0x152238,
         transparent: true,
-        opacity: 0.06,
-        side: THREE.DoubleSide,
+        opacity: 0.12,
+        depthWrite: false,
+        side: THREE.FrontSide,
       }),
     );
     group.add(shell);
 
-    const fibonacci = (count: number) => {
-      const points: THREE.Vector3[] = [];
-      const offset = 2 / count;
-      const increment = Math.PI * (3 - Math.sqrt(5));
-      for (let i = 0; i < count; i += 1) {
-        const y = i * offset - 1 + offset / 2;
-        const radius = Math.sqrt(1 - y * y);
-        const phi = i * increment;
-        points.push(new THREE.Vector3(Math.cos(phi) * radius, y, Math.sin(phi) * radius));
-      }
-      return points;
-    };
-
-    const points = fibonacci(skills.length);
+    // Icons sit on the sphere surface (not floating far out)
+    const dirs = fibonacciSphere(skills.length);
+    const iconRadius = radius * 1.06;
     const labels: CSS2DObject[] = [];
+    const depthOrder: { label: CSS2DObject; depth: number }[] = [];
 
-    skills.forEach((skill, index) => {
+    dirs.forEach((dir, index) => {
+      const skill = skills[index];
       const el = document.createElement("div");
       el.className = "skill-chip";
-      el.innerHTML = `<img src="https://skillicons.dev/icons?i=${skill.icon}" alt="${skill.name}" width="40" height="40" /><span>${skill.name}</span>`;
-      const object = new CSS2DObject(el);
-      object.position.copy(points[index].multiplyScalar(2.2));
-      group.add(object);
-      labels.push(object);
+      const iconSrc = skill.src ?? `https://skillicons.dev/icons?i=${skill.icon}`;
+      el.innerHTML = `<div class="skill-chip-inner"><img src="${iconSrc}" alt="${skill.name}" width="64" height="64" decoding="async" /><span>${skill.name}</span></div>`;
+      const label = new CSS2DObject(el);
+      label.position.copy(dir).multiplyScalar(iconRadius);
+      group.add(label);
+      labels.push(label);
+      depthOrder.push({ label, depth: 0 });
     });
 
     let dragging = false;
@@ -92,6 +117,17 @@ export function SkillsGlobe() {
     let velocityY = 0;
     let auto = !reduced;
     let frame = 0;
+
+    const worldPos = new THREE.Vector3();
+    const toCam = new THREE.Vector3();
+    const facingDir = new THREE.Vector3();
+    const xAxis = new THREE.Vector3(1, 0, 0);
+    const yAxis = new THREE.Vector3(0, 1, 0);
+
+    const spin = (dx: number, dy: number) => {
+      group.rotateOnWorldAxis(xAxis, dy);
+      group.rotateOnWorldAxis(yAxis, dx);
+    };
 
     const onPointerDown = (event: PointerEvent) => {
       dragging = true;
@@ -106,10 +142,9 @@ export function SkillsGlobe() {
       const dy = event.clientY - lastY;
       lastX = event.clientX;
       lastY = event.clientY;
-      velocityX = dy * 0.005;
-      velocityY = dx * 0.005;
-      group.rotation.x += velocityX;
-      group.rotation.y += velocityY;
+      velocityX = dy * 0.0055;
+      velocityY = dx * 0.0055;
+      spin(velocityY, velocityX);
     };
     const onPointerUp = (event: PointerEvent) => {
       dragging = false;
@@ -126,26 +161,59 @@ export function SkillsGlobe() {
 
     const tick = () => {
       frame = window.requestAnimationFrame(tick);
+
       if (auto && !dragging) {
-        group.rotation.y += 0.004;
-        group.rotation.x = THREE.MathUtils.lerp(group.rotation.x, -0.18, 0.02);
+        spin(0.0038, 0.0006);
       } else if (!dragging) {
-        group.rotation.x += velocityX;
-        group.rotation.y += velocityY;
-        velocityX *= 0.94;
-        velocityY *= 0.94;
+        spin(velocityY, velocityX);
+        velocityX *= 0.95;
+        velocityY *= 0.95;
+        if (Math.abs(velocityX) < 0.00005) velocityX = 0;
+        if (Math.abs(velocityY) < 0.00005) velocityY = 0;
       }
-      group.rotation.x = Math.max(-0.7, Math.min(0.7, group.rotation.x));
+
+      labels.forEach((label, index) => {
+        const dir = dirs[index];
+        label.getWorldPosition(worldPos);
+        toCam.copy(camera.position).sub(worldPos).normalize();
+        facingDir.copy(dir).applyQuaternion(group.quaternion);
+        const facing = facingDir.dot(toCam);
+        // Soft front/back like the reference tag-cloud
+        const front = THREE.MathUtils.clamp((facing + 0.35) / 1.35, 0, 1);
+
+        const el = label.element as HTMLDivElement;
+        const inner = el.firstElementChild as HTMLDivElement | null;
+        // Back icons stay readable but clearly behind — opacity only (no blur filters)
+        el.style.opacity = String((0.28 + front * 0.72).toFixed(3));
+        el.style.zIndex = String(Math.round(front * 200));
+        if (inner) {
+          const scale = Math.round((0.68 + front * 0.38) * 100) / 100;
+          inner.style.transform = `scale(${scale})`;
+          inner.style.filter = "none";
+        }
+
+        depthOrder[index].depth = facing;
+      });
+
+      // Paint order: back labels first so front icons sit on top
+      depthOrder
+        .slice()
+        .sort((a, b) => a.depth - b.depth)
+        .forEach((entry) => {
+          labelRenderer.domElement.appendChild(entry.label.element);
+        });
+
       renderer.render(scene, camera);
       labelRenderer.render(scene, camera);
     };
     tick();
 
     const onResize = () => {
-      width = host.clientWidth || 560;
-      height = Math.max(420, Math.min(560, width * 0.85));
-      camera.aspect = width / height;
+      width = host.clientWidth || 520;
+      height = width;
+      camera.aspect = 1;
       camera.updateProjectionMatrix();
+      renderer.setPixelRatio(Math.min(Math.max(window.devicePixelRatio || 1, 1), 3));
       renderer.setSize(width, height);
       labelRenderer.setSize(width, height);
     };
@@ -173,9 +241,9 @@ export function SkillsGlobe() {
   }, []);
 
   return (
-    <div className="relative mx-auto h-[min(560px,78vw)] w-full max-w-[620px]">
-      <div ref={hostRef} className="absolute inset-0 cursor-grab overflow-hidden active:cursor-grabbing" />
-      <p className="pointer-events-none absolute bottom-2 left-0 right-0 z-10 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
+    <div className="relative mx-auto aspect-square w-full max-w-[540px]">
+      <div ref={hostRef} className="absolute inset-0 cursor-grab active:cursor-grabbing" />
+      <p className="pointer-events-none absolute bottom-1 left-0 right-0 z-10 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">
         Drag to explore skills
       </p>
     </div>
