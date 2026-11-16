@@ -152,21 +152,28 @@ footer[id] {
 }
 
 .wordmark {
-  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 0.78;
-  text-align: center;
-  white-space: nowrap;
-  font-size: clamp(4rem, 14vw, 13rem);
+  display: block;
+  width: 100%;
+  line-height: 0;
   user-select: none;
 }
 
-.wordmark span {
-  color: #8ec5ff;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1.5px #8ec5ff;
-  paint-order: stroke fill;
+.wordmark-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.wordmark-outline {
+  fill: none;
+  stroke: #8ec5ff;
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: 148px;
+  font-weight: 800;
+  letter-spacing: -0.06em;
 }
 
 .blueprint-grid {

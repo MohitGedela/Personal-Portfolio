@@ -22,7 +22,22 @@ export function Hero() {
         hold={700}
         className="wordmark pointer-events-none relative z-10 -mb-2 lg:-mb-6"
       >
-        <Typed text="PORTFOLIO" cps={22} />
+        <span className="sr-only">PORTFOLIO</span>
+        <svg
+          className="wordmark-svg"
+          viewBox="0 0 1100 150"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <text
+            className="wordmark-outline"
+            x="550"
+            y="118"
+            textAnchor="middle"
+          >
+            PORTFOLIO
+          </text>
+        </svg>
       </BuildBlock>
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-start gap-8 lg:grid-cols-12 lg:gap-8">
