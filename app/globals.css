@@ -151,32 +151,20 @@ footer[id] {
   padding: 0;
 }
 
-.wordmark {
-  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+.wordmark,
+.wordmark span {
   font-weight: 800;
   letter-spacing: -0.06em;
   line-height: 0.78;
   text-align: center;
   white-space: nowrap;
-  font-size: clamp(4rem, 16vw, 15rem);
-  user-select: none;
-}
-
-.wordmark .wm-ch {
   color: transparent;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1.5px #8ec5ff;
   paint-order: stroke fill;
-}
-
-/* Keep global tracking/stroke; only separate the colliding P–O and O–R pairs */
-.wordmark .wm-p {
-  margin-right: 0.035em;
-}
-
-.wordmark .wm-r {
-  margin-left: 0.02em;
-  margin-right: 0.03em;
+  font-size: clamp(4rem, 16vw, 15rem);
+  user-select: none;
+  font-kerning: none;
 }
 
 .blueprint-grid {
