@@ -21,8 +21,16 @@ export function Hero() {
         delay={760}
         hold={700}
         className="wordmark pointer-events-none relative z-10 -mb-2 lg:-mb-6"
+        aria-label="PORTFOLIO"
       >
-        <Typed text="PORTFOLIO" cps={22} />
+        {"PORTFOLIO".split("").map((ch, i) => (
+          <span
+            key={`${ch}-${i}`}
+            className={`wm-ch${ch === "P" ? " wm-p" : ""}${ch === "R" ? " wm-r" : ""}`}
+          >
+            {ch}
+          </span>
+        ))}
       </BuildBlock>
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-start gap-8 lg:grid-cols-12 lg:gap-8">
