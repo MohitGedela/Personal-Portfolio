@@ -100,11 +100,8 @@ export function Hero() {
               />
             </BuildBlock>
           </div>
-          <figcaption className="mx-auto mt-3 flex w-full max-w-[300px] items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-[#3b82f6] lg:max-w-none">
+          <figcaption className="mx-auto mt-3 w-full max-w-[300px] text-center font-mono text-[10px] uppercase tracking-[0.2em] text-[#3b82f6] lg:max-w-none">
             <Typed text="Toronto, ON" delay={180} cps={28} />
-            <span className="text-white/50">
-              <Typed text="FIG.01" delay={320} cps={20} />
-            </span>
           </figcaption>
         </BuildBlock>
 
