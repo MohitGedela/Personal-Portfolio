@@ -13,10 +13,10 @@ export const profile = {
 };
 
 export const about = {
-  lead: "I am computer software enthusiast who loves turning complex problems into simple, beautiful solutions. My passion lies in creating user-centered digital experiences that are both functional and visually stunning.",
-  body: "With expertise in modern web technologies, I specialize in Java, Python, HTML, CSS, and JavaScript. I believe in writing clean, maintainable code and following best practices to deliver exceptional results.",
+  lead: "I'm a Software Engineering student at McMaster University who works on machine learning and data. I like turning large, messy datasets into models and tools that give clear answers. My main tools are Python, SQL, PyTorch, scikit-learn, Pandas, and NumPy, plus LangChain for LLM pipelines and PostgreSQL and DynamoDB for storage.",
+  body: "At RBC Borealis I'm building CNN and transfer learning models in PyTorch to detect diabetic retinopathy across more than 60,000 retinal images, tuned for high sensitivity so fewer cases get missed. Earlier, I migrated a NoSQL database to a normalized PostgreSQL schema and built dashboards that cut reporting time from two hours to under a minute.",
   aside:
-    "When I'm not at my desk, you'll find me lifting weights or exploring the outdoors staying active so I'm ready for whatever challenge comes next.",
+    "At LingoSpace I optimized multimodal AI generation pipelines, which cut image generation costs by 60 percent. I like building things, so check out my projects and get in touch.",
 };
 
 export type Skill = { name: string; icon: string; src?: string };
@@ -66,21 +66,34 @@ export type Role = {
   summary: string;
 };
 
-/** Newest first — matches https://mohitgedela.netlify.app/ */
 export const roles: Role[] = [
   {
-    dates: "Dec 2025 — Present",
-    title: "AI & 3D Modeling Systems Intern",
-    org: "Ridan 3D Industries",
+    dates: "Sep 2026 — Present",
+    title: "Machine Learning Researcher",
+    org: "RBC Borealis",
     summary:
-      "AI-assisted 3D modeling with Three.js/WebGL. RAG and rule-based checks guide mesh optimization and design adjustments.",
+      "CNN and transfer learning in PyTorch for diabetic retinopathy across 60,000+ retinal images; 96.5% sensitivity and ResNet fine-tuning from 0.72 to 0.9+ accuracy.",
   },
   {
-    dates: "Nov 2025 — Present",
-    title: "AI Onboarding Intern",
+    dates: "May 2026 — Aug 2026",
+    title: "Data Integration Intern / Research Assistant III",
+    org: "Harvest Systems / McMaster University",
+    summary:
+      "End-to-end sensor pipeline with PLCs, MQTT, AWS IoT Core, and Lambda; DynamoDB → PostgreSQL migration; Grafana & Sigma dashboards that cut reporting from 2 hrs to under 1 min.",
+  },
+  {
+    dates: "Dec 2025 — Feb 2026",
+    title: "AI Software Engineer Intern",
+    org: "Ridan 3D Industries",
+    summary:
+      "AI-assisted 3D modelling with Three.js/WebGL and a rule-based + RAG design assistant for topology and parametric suggestions.",
+  },
+  {
+    dates: "Oct 2025 — Dec 2025",
+    title: "AI Engineer Intern",
     org: "LingoSpace",
     summary:
-      "Multimodal AI for education: output quality, brand alignment, and lower generation cost through model choice and prompts.",
+      "Multimodal AI pipelines for ESL edutainment; cut image generation costs 60% and improved brand-aligned illustration quality 25%.",
   },
   {
     dates: "Oct 2025 — Dec 2025",
@@ -89,46 +102,17 @@ export const roles: Role[] = [
     summary: "Mobile UX, Figma prototypes, and UI changes grounded in user research.",
   },
   {
-    dates: "Sep 2025 — Present",
+    dates: "Sep 2025 — Apr 2026",
     title: "Open Source Contributor — Interface AI",
     org: "Google Developer Groups McMaster",
-    summary: "Frontend features and LLM-backed automation for an AI Chrome extension.",
-  },
-  {
-    dates: "May 2025 — Present",
-    title: "Events Team Executive",
-    org: "McMaster Software Engineering Society",
-    summary: "Event planning, logistics, and on-site execution.",
+    summary:
+      "LangChain pipelines mapping OCR to semantic UI actions, CI/CD for releases, and Gemini-generated synonyms for 10+ action variants.",
   },
   {
     dates: "Mar 2025 — Jun 2025",
     title: "Software Developer",
     org: "GastroTrackAI",
     summary: "UX fixes, Flask/Firebase notifications, Uber Eats API support, and docs.",
-  },
-  {
-    dates: "Oct 2023 — Jun 2024",
-    title: "Co-Founder & Vice President",
-    org: "KCI Computer Science Club",
-    summary: "Beginner workshops (Python, Java, Arduino, Raspberry Pi), projects, and contest prep.",
-  },
-  {
-    dates: "Dec 2022 — Jun 2024",
-    title: "Founder & President",
-    org: "KCI Engineering",
-    summary: "Club projects, workshops, guest lectures, and member communication.",
-  },
-  {
-    dates: "Aug 2023 — May 2024",
-    title: "VP Technology & Outreach",
-    org: "Global Ventures Youth",
-    summary: "NPO site and socials, 60+ partnerships, and awareness campaigns.",
-  },
-  {
-    dates: "Sep 2022 — May 2023",
-    title: "VP of Technology",
-    org: "Fruitlet · JA Canada",
-    summary: "Shopify storefront, channels, and day-to-day tech ops.",
   },
 ];
 
@@ -142,18 +126,26 @@ export type Project = {
 };
 
 export const featuredProject: Project = {
-  code: "GS-01",
-  title: "GeoShield",
+  code: "OC-01",
+  title: "Oculus",
   summary:
-    "Real-time emergency response: survivors request help, volunteers answer, both meet on a live map.",
-  tags: ["React", "Vite", "Tailwind", "Socket.io", "Node.js"],
-  links: [{ label: "GitHub", href: "https://github.com/MohitGedela/GeoShield" }],
+    "AI-assisted diabetic retinopathy screening with computer vision: baseline CNN and ResNet transfer learning across 60,000+ retinal images, tuned for 96.5% sensitivity and flagging referable cases for professional review.",
+  tags: ["PyTorch", "CNN", "ResNet", "Computer Vision", "Python"],
+  links: [{ label: "GitHub", href: "https://github.com/MohitGedela/Oculus" }],
   featured: true,
 };
 
 export const projects: Project[] = [
   {
-    code: "LV-02",
+    code: "GS-02",
+    title: "GeoShield",
+    summary:
+      "Real-time emergency response: survivors request help, volunteers answer, both meet on a live map.",
+    tags: ["React", "Vite", "Tailwind", "Socket.io", "Node.js"],
+    links: [{ label: "GitHub", href: "https://github.com/MohitGedela/GeoShield" }],
+  },
+  {
+    code: "LV-03",
     title: "LevelUP",
     summary: "Documents become personalized quizzes with progress tracking, powered by Gemini.",
     tags: ["Next.js", "React", "TypeScript", "Gemini"],
@@ -164,7 +156,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    code: "MD-03",
+    code: "MD-04",
     title: "Moodify",
     summary: "Snap or upload a photo, detect emotion, generate a Spotify playlist.",
     tags: ["Python", "OpenCV", "Streamlit"],
@@ -174,7 +166,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    code: "ES-04",
+    code: "ES-05",
     title: "EchoSense-Pi",
     summary: "Smart white cane on a Raspberry Pi 4 with head- and foot-level collision alerts.",
     tags: ["Python", "Java", "Raspberry Pi", "Android"],
@@ -185,7 +177,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    code: "EV-05",
+    code: "EV-06",
     title: "EvoSense",
     summary: "Real-time facial expression detection for accessible emotion feedback.",
     tags: ["OpenCV", "MediaPipe", "scikit-learn"],
@@ -196,7 +188,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    code: "AR-06",
+    code: "AR-07",
     title: "MemoAR",
     summary: "QR-triggered AR narrative of a person’s history (PlayCanvas, Zappar, Mixamo).",
     tags: ["PlayCanvas", "Zappar", "Mixamo"],
@@ -206,25 +198,11 @@ export const projects: Project[] = [
       { label: "Try it", href: "https://drive.google.com/file/d/1pFsltHNiGDzej33W7RS3AdaHfWpPw6J9/view" },
     ],
   },
-  {
-    code: "JB-07",
-    title: "Math Battleship",
-    summary: "Java battleship using coordinates, slopes, and inequalities to find the fleet.",
-    tags: ["Java"],
-    links: [{ label: "GitHub", href: "https://github.com/MohitGedela/Java-Battleship-Linear-Relations" }],
-  },
-  {
-    code: "WD-08",
-    title: "Wordo",
-    summary: "Five-letter words, six tries, color hints after every guess.",
-    tags: ["Java"],
-    links: [{ label: "GitHub", href: "https://github.com/MohitGedela/Java-Wordle-Game" }],
-  },
 ];
 
 export const statusItems = [
-  "Building Oculus, ML Retinal Screening",
-  "Incoming Data @ Scotiabank Velocity",
+  "Building Oculus, ML Retinal Screening @ RBC Borealis",
+  "Incoming Data Science @ Scotiabank Velocity",
   "Open to Summer 2027 Co-op and Internships",
 ];
 

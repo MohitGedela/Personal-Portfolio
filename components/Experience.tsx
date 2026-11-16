@@ -20,11 +20,6 @@ export function Experience() {
             <Typed text="Experience" cps={34} />
           </h2>
         </BuildBlock>
-        <BuildBlock id="exp-lead" delay={120} className="mt-3 max-w-2xl">
-          <p className="text-justify text-sm leading-relaxed text-[#888]">
-            <Typed text="Newest first." cps={60} />
-          </p>
-        </BuildBlock>
 
         <div className="relative mx-auto mt-12 max-w-5xl">
           <span

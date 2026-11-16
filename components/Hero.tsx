@@ -5,8 +5,7 @@ import { BuildBlock, Typed } from "@/components/build";
 
 const metrics = [
   { value: "09", label: "Projects" },
-  { value: "10", label: "Roles" },
-  { value: "04", label: "Flagships" },
+  { value: "06", label: "Roles" },
 ];
 
 export function Hero() {
@@ -72,7 +71,7 @@ export function Hero() {
               <Typed text="Contact" cps={32} />
             </BuildBlock>
           </div>
-          <dl className="mt-8 grid max-w-lg grid-cols-3 gap-2.5">
+          <dl className="mt-8 grid max-w-lg grid-cols-2 gap-2.5">
             {metrics.map((metric, index) => (
               <BuildBlock
                 key={metric.label}
@@ -93,11 +92,11 @@ export function Hero() {
 
         <BuildBlock as="figure" id="portrait" delay={1680} hold={1500} className="lg:col-span-3 lg:pt-2">
           <div className="relative mx-auto aspect-[3/4] w-full max-w-[300px] overflow-hidden bg-[#0c0c0c] lg:max-w-none">
-            <BuildBlock id="photo" delay={2550} duration={1100} hold={900} className="absolute inset-0 bg-[#3b82f6]">
+            <BuildBlock id="photo" delay={2550} duration={1100} hold={900} className="absolute inset-0 bg-[#0c0c0c]">
               <img
                 src="/myWebPic.jpg"
                 alt="Mohit Gedela"
-                className="h-full w-full object-cover object-[center_18%] grayscale contrast-125 mix-blend-multiply"
+                className="h-full w-full scale-[1.55] object-cover object-[center_48%]"
               />
             </BuildBlock>
           </div>
