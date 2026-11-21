@@ -9,7 +9,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="relative z-10 flex min-h-[100svh] flex-col justify-center overflow-x-clip px-4 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-20"
+      className="relative z-10 flex min-h-[min(100svh,56.25vw)] flex-col justify-center overflow-x-clip px-4 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-20"
     >
       <OrbitField />
       <div className="relative z-10 mx-auto w-full max-w-[1400px]">

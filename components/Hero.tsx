@@ -1,7 +1,8 @@
 import { profile, statusItems } from "@/lib/data";
 import { BlueprintField } from "@/components/BlueprintField";
 import { BuildBlock, Typed } from "@/components/build";
-
+import { Wordmark } from "@/components/Wordmark";
+import { serif } from "@/app/fonts";
 
 const metrics = [
   { value: "09", label: "Projects" },
@@ -12,7 +13,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] w-full flex-col justify-start overflow-hidden px-6 pb-8 pt-20 sm:px-8 lg:px-10 lg:pt-24"
+      className="relative flex min-h-[min(100svh,56.25vw)] w-full flex-col justify-start overflow-hidden px-6 pb-8 pt-20 sm:px-8 lg:px-10 lg:pt-24"
     >
       <BlueprintField />
       <BuildBlock
@@ -20,15 +21,15 @@ export function Hero() {
         id="wordmark"
         delay={760}
         hold={700}
-        className="wordmark pointer-events-none relative z-10 -mb-2 lg:-mb-6"
+        className="wordmark pointer-events-none relative z-0 -mb-2 lg:-mb-6"
       >
-        <Typed text="PORTFOLIO" cps={22} />
+        <Wordmark />
       </BuildBlock>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-start gap-8 lg:grid-cols-12 lg:gap-8">
-        <div className="lg:col-span-5">
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-start gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(180px,240px)] sm:gap-4 lg:grid-cols-[minmax(416px,1fr)_240px_minmax(240px,1fr)] lg:gap-6 xl:grid-cols-12 xl:gap-8">
+        <div className="sm:min-w-0 xl:col-span-5">
           <BuildBlock id="hello" delay={420}>
-            <p className="font-serif text-4xl italic text-white sm:text-5xl">
+            <p className={`${serif.className} text-4xl italic text-white sm:text-5xl`}>
               <Typed text="Hello, I'm" cps={40} />
             </p>
           </BuildBlock>
@@ -44,11 +45,13 @@ export function Hero() {
             </p>
           </BuildBlock>
           <BuildBlock id="copy" delay={560} className="mt-4 max-w-lg">
-            <p className="text-justify text-base leading-relaxed text-[#9a9a9a]">
-              <Typed
-                text="Real-time systems, multimodal products, and accessible hardware."
-                cps={100}
-              />
+            <p className="text-base leading-relaxed text-[#9a9a9a] xl:whitespace-nowrap">
+              <span className="block whitespace-nowrap xl:inline">
+                <Typed text="Real-time systems, multimodal products," cps={100} />
+              </span>{" "}
+              <span className="block whitespace-nowrap xl:inline">
+                <Typed text="and accessible hardware." delay={80} cps={100} />
+              </span>
             </p>
           </BuildBlock>
           <div className="mt-7 flex flex-wrap gap-3">
@@ -90,8 +93,14 @@ export function Hero() {
           </dl>
         </div>
 
-        <BuildBlock as="figure" id="portrait" delay={1680} hold={1500} className="lg:col-span-3 lg:pt-2">
-          <div className="relative mx-auto aspect-[3/4] w-full max-w-[300px] overflow-hidden bg-[#0c0c0c] lg:max-w-none">
+        <BuildBlock
+          as="figure"
+          id="portrait"
+          delay={1680}
+          hold={1500}
+          className="mx-auto mt-4 w-full max-w-[240px] -translate-x-2 sm:mx-0 sm:mt-8 sm:max-w-none sm:-translate-x-4 lg:mt-0 lg:translate-x-0 lg:pt-2 xl:col-span-3"
+        >
+          <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#0c0c0c]">
             <BuildBlock id="photo" delay={2550} duration={1100} hold={900} className="absolute inset-0 bg-[#0c0c0c]">
               <img
                 src="/myWebPic.jpg"
@@ -100,7 +109,7 @@ export function Hero() {
               />
             </BuildBlock>
           </div>
-          <figcaption className="mx-auto mt-3 w-full max-w-[300px] text-center font-mono text-[10px] uppercase tracking-[0.2em] text-[#3b82f6] lg:max-w-none">
+          <figcaption className="mt-3 w-full text-center font-mono text-[10px] uppercase tracking-[0.2em] text-[#3b82f6]">
             <Typed text="Toronto, ON" delay={180} cps={28} />
           </figcaption>
         </BuildBlock>
@@ -110,7 +119,7 @@ export function Hero() {
           id="status"
           delay={1760}
           hold={900}
-          className="border border-white/10 bg-black/50 lg:col-span-4 lg:mt-2"
+          className="border border-white/10 bg-black/50 sm:col-span-2 lg:col-span-1 lg:mt-2 xl:col-span-4"
         >
           <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
             <p className="font-mono text-xs uppercase tracking-[0.2em]">
