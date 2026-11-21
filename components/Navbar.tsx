@@ -2,7 +2,6 @@
 
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { BuildBlock, Typed } from "@/components/build";
 
 const links = [
   { href: "#about", id: "about", label: "About" },
@@ -42,23 +41,16 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <BuildBlock
-      as="header"
-      id="nav"
-      delay={1480}
-      className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#070b14]/75 backdrop-blur-md"
-    >
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#070b14]/75 backdrop-blur-md">
       <div className="mx-auto flex h-12 max-w-6xl items-center justify-between gap-4 px-5">
         <a href="#top" className="font-mono text-[12px] text-white/40" onClick={() => setOpen(false)}>
-          <span className="text-white/90">
-            <Typed text="Mohit" cps={22} />
-          </span>
+          <span className="text-white/90">Mohit</span>
           <span className="mx-2 text-white/25">/</span>
-          <Typed text="Portfolio" delay={50} cps={22} />
+          Portfolio
         </a>
 
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
-          {links.map((link, index) => (
+          {links.map((link) => (
             <a
               key={link.id}
               href={link.href}
@@ -66,7 +58,7 @@ export function Navbar() {
                 active === link.id ? "text-[#7eb6ff]" : "text-white/70 hover:text-white"
               }`}
             >
-              <Typed text={link.label} delay={80 + index * 70} cps={24} />
+              {link.label}
             </a>
           ))}
         </nav>
@@ -76,7 +68,7 @@ export function Navbar() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
             <span className="relative h-1.5 w-1.5 rounded-full bg-emerald-400" />
           </span>
-          <Typed text="Available" delay={360} cps={22} />
+          Available
         </div>
 
         <button
@@ -105,6 +97,6 @@ export function Navbar() {
           </nav>
         </div>
       )}
-    </BuildBlock>
+    </header>
   );
 }
